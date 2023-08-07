@@ -1,12 +1,19 @@
 extends ../layouts/app.pug
 
 block content
-  // <form action="/posts" method="post">
-  //   <div><label>Title<sup>*</sup></label><input name="title"></div>
-  //   <div><label>Body<sup>*</sup></label><textarea rows="10" name="body"></textarea></div>
-  //   <input type="submit" value="Save">
-  //  </form>
-
-  // BEGIN (write your solution here)
-
-  // END
+  form(action='/posts' method='post')
+    div
+      label Title
+        sup *
+      input(name='title')
+      if errors && errors.title.length
+        each error in errors.title
+          span(class='error') #{error}
+    div
+      label Body
+        sup *
+      textarea(rows='10' name='body')
+      if errors && errors.body.length
+        each error in errors.body
+          span(class='error') #{error}
+    input(type='submit' value='Save')
