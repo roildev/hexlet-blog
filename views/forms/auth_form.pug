@@ -1,0 +1,18 @@
+if Object.keys(errors).length > 0
+  for key in Object.keys(errors)
+    div.alert.alert-danger(role='alert')= errors[key]
+
+form(action=(form.isSession ? '/session' : '/users') method='POST')
+  .row.form-group
+    .col-sm
+      label(for='inputNickname') Nickname
+      input.form-control.mt-2(type='text' name='nickname' id='inputNickname' placeholder='Enter nickname' value=form.nickname)
+  .row.form-group.mt-3
+    .col-sm
+      label(for='inputPassword') Password
+      input.form-control.mt-2(type='password' name='password' id='inputPassword' placeholder='Enter password')
+  .form-group.mt-4
+    if form.isSession
+      button.btn.btn-success.btn-block(type='submit') Log In
+    else
+      button.btn.btn-success.btn-block(type='submit') Sign up
