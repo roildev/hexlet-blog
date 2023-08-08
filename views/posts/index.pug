@@ -2,12 +2,22 @@ extends ../layouts/app.pug
 
 block content
   div
-    a(href='/') Main page
-    table(class="table")
-      tbody
+    table.table
+      thead
         tr
-        th Posts
+          th(scope='col') #
+          th(scope='col') Title
+          th(scope='col') Actions
+      tbody
         each post in posts
           tr
-          td
-            a(href=`posts/${post.id}`) #{post.title}
+            td
+              a(href=`posts/${post.id}`) #{post.id}
+            td
+              div= post.title
+            td
+              .d-flex.gap-2
+                a.btn.btn-primary(href=`posts/${post.id}/edit`) Edit
+
+                form(action=`/posts/${post.id}?_method=DELETE` method='POST')
+                  button.btn.btn-danger(type='submit') Delete

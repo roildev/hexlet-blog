@@ -1,19 +1,8 @@
 extends ../layouts/app.pug
 
 block content
-  form(action='/posts' method='post')
-    div
-      label Title
-        sup *
-      input(name='title')
-      if errors && errors.title.length
-        each error in errors.title
-          span(class='error') #{error}
-    div
-      label Body
-        sup *
-      textarea(rows='10' name='body')
-      if errors && errors.body.length
-        each error in errors.body
-          span(class='error') #{error}
-    input(type='submit' value='Save')
+  .row.mt-3
+    .col-sm-6.mx-auto
+      h3.text-xs-center New Blog Post
+  form(action='/posts' method='POST')
+    include _form.pug

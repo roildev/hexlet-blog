@@ -1,0 +1,8 @@
+extends ../layouts/app.pug
+
+block content
+  .row.mt-3
+    .col-sm-6.mx-auto
+      h3.text-xs-center Edit Blog Post # #{post.id}
+  form(action=`/posts/${post.id}?_method=PATCH` method='POST')
+    include _form.pug
