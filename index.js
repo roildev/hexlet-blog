@@ -43,24 +43,23 @@ export default () => {
   app.use(session({
     secret: 'secret key',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   }));
 
   app.use((req, res, next) => {
-    console.log('req.session', req.session)
     if (req.session?.nickname) {
       const { nickname } = req.session;
-      req.locals.currentUser = users.find((user) => user.nickname === nickname);
+      res.locals.currentUser = users.find((user) => user.nickname === nickname);
     } else {
       res.locals.currentUser = new Guest();
     }
 
     next();
-
-  })
+  });
 
   app.get('/', (req, res) => {
-    res.status(200).render('index');
+    const { currentUser } = res.locals;
+    res.status(200).render('index', {currentUser});
   });
 
   app.get('/users/new', (req, res) => {
@@ -80,8 +79,6 @@ export default () => {
     }
 
     users.push(new User(nickname, encrypt(password)));
-
-    console.log('users', users)
 
     res.redirect('/session/new');
   });
@@ -111,12 +108,16 @@ export default () => {
       return;
     }
 
-    res.status(200).render('index');
-
+    req.session.nickname = nickname;
+    res.redirect('/');
   });
 
   app.delete('/session', (req, res) => {
-    // TODO
+    req.session.destroy((err) => {
+      console.error(err)
+    });
+
+    res.redirect('/');
   });
 
   app.get('/posts', (req, res) => {

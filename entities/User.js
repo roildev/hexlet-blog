@@ -6,5 +6,10 @@ export default class User {
     User.userId += 1;
     this.nickname = nickname;
     this.password = password;
+    this.guest = false;
+  }
+
+  isGuest() {
+    return this.guest;
   }
 };
